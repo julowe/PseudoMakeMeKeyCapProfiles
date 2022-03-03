@@ -9,12 +9,12 @@ use <skin.scad>
 // Choc Chord version Chicago Stenographer with sculpte Thumb cluter
 // change stemrot 
 
-mirror([1,0,0]) {
+mirror([0,0,0]) {
 keycap(
   keyID   = 4, //change profile refer to KeyParameters Struct
   cutLen  = 0, //Don't change. for chopped caps
   Stem    = true, //turn on shell and stems
-  StemRot = 0,//change stem orientation by deg
+  StemRot = 90,//change stem orientation by deg
   Dish    = true, //turn on dish cut
   Stab    = 0, 
   visualizeDish = false, // turn on debug visual of Dish 
@@ -401,7 +401,7 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false
             translate([Stab/2,0,0])rotate([0,0,StemRot])cherry_stem(KeyHeight(keyID), slop);
             translate([-Stab/2,0,0])rotate([0,0,StemRot])cherry_stem(KeyHeight(keyID), slop);
           }
-          translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=1 /*StemRadius(i, keyID) */ ))]); //outer shell
+          translate([0,0,-.001])rotate([0,0,StemRot])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=1 /*StemRadius(i, keyID) */ ))]); //outer shell
        }
         
      }
