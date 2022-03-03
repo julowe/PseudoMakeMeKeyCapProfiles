@@ -3,6 +3,7 @@
 ## How to
 * make sure OpenSCAD is up to date.
 * unzip libraries.zip into your OpenSCAD libraries
+  * if using OpenSCAD 2019.5 (or above, likely), comment out line 7 (`function is_undef(x) = len(x) > 0 ? vec_is_undef(x) : x == undef;`) from `tracjectory.scad` from `libraries.zip`. This removes a compilation warning message.
 * select keycap you want to render by changing KeyID value
 * change KeyID to corresponding Parameter ID
 * press F5 to review
