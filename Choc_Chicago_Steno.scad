@@ -10,26 +10,142 @@ use <skin.scad>
 //Choc Chord version Chicago Stenographer
 
 /*Tester */
+//keycap(
+//  keyID  = 1, //change profile refer to KeyParameters Struct
+//  cutLen = 0, //Don't change. for chopped caps
+//  Stem   = true, //turn on shell and stems
+//  StemRot = 0, //change stem orientation by deg
+//  Dish   = true, //turn on dish cut
+//  Stab   = 0,
+//  visualizeDish = false, // turn on debug visual of Dish
+//  crossSection  = false, // center cut to check internal
+//  homeDot = false, //turn on homedots
+//  Legends = false
+//);
+
+/* Requested Keys */
+
+// REMEMBER zero-indexed
+
+////Chicago Steno R2/R4
+//keycap(
+//  keyID  = 0, //change profile refer to KeyParameters Struct
+//  cutLen = 0, //Don't change. for chopped caps
+//  Stem   = true, //turn on shell and stems
+//  StemRot = 0, //change stem orientation by deg
+//  Dish   = true, //turn on dish cut
+//  Stab   = 0,
+//  visualizeDish = false, // turn on debug visual of Dish
+//  crossSection  = false, // center cut to check internal
+//  homeDot = false, //turn on homedots
+//  Legends = false
+//);
+ 
+////Chicago Steno R3 flat
+//keycap(
+//  keyID  = 1, //change profile refer to KeyParameters Struct
+//  cutLen = 0, //Don't change. for chopped caps
+//  Stem   = true, //turn on shell and stems
+//  StemRot = 0, //change stem orientation by deg
+//  Dish   = true, //turn on dish cut
+//  Stab   = 0,
+//  visualizeDish = false, // turn on debug visual of Dish
+//  crossSection  = false, // center cut to check internal
+//  homeDot = false, //turn on homedots
+//  Legends = false
+//);
+  
+////Chicago Steno R3 flat Homing Dots
+//keycap(
+//  keyID  = 1, //change profile refer to KeyParameters Struct
+//  cutLen = 0, //Don't change. for chopped caps
+//  Stem   = true, //turn on shell and stems
+//  StemRot = 0, //change stem orientation by deg
+//  Dish   = true, //turn on dish cut
+//  Stab   = 0,
+//  visualizeDish = false, // turn on debug visual of Dish
+//  crossSection  = false, // center cut to check internal
+//  homeDot = true, //turn on homedots
+//  Legends = false
+//);
+  
+//Chicago Steno R2/R4 1.5
 keycap(
-  keyID  = 1, //change profile refer to KeyParameters Struct
+  keyID  = 7, //change profile refer to KeyParameters Struct
   cutLen = 0, //Don't change. for chopped caps
-  Stem   = true, //tusn on shell and stems
+  Stem   = true, //turn on shell and stems
   StemRot = 0, //change stem orientation by deg
   Dish   = true, //turn on dish cut
-  Stab   = 0, 
-  visualizeDish = false, // turn on debug visual of Dish 
+  Stab   = 0,
+  visualizeDish = false, // turn on debug visual of Dish
   crossSection  = false, // center cut to check internal
-  homeDot = false, //turn on homedots
+  homeDot = true, //turn on homedots
   Legends = false
-  ); 
+  /* ERROR FIXME - no stems, but has dish
+  ERROR: CGAL error in CGALUtils::applyBinaryOperator union: CGAL ERROR: assertion violation! Expr: itl != it->second.end() File: /usr/include/CGAL/Nef_3/SNC_external_structure.h Line: 1144
+  */
+);
+  
+////Chicago Steno R3 1.5u
+//keycap(
+//  keyID  = 8, //change profile refer to KeyParameters Struct
+//  cutLen = 0, //Don't change. for chopped caps
+//  Stem   = true, //turn on shell and stems
+//  StemRot = 0, //change stem orientation by deg
+//  Dish   = true, //turn on dish cut
+//  Stab   = 0,
+//  visualizeDish = false, // turn on debug visual of Dish
+//  crossSection  = false, // center cut to check internal
+//  homeDot = true, //turn on homedots
+//  Legends = false
+//  /* ERROR FIXME - has stems but no dish
+//  ERROR: CGAL error in CGAL_Nef_polyhedron3(): CGAL ERROR: assertion violation! Expr: ss_circle.has_on(sv_prev->point()) File: /usr/include/CGAL/Nef_3/polygon_mesh_to_nef_3.h Line: 256
+//  ERROR: CGAL error in CGAL_Nef_polyhedron3(): CGAL ERROR: assertion violation! Expr: ss_circle.has_on(sv_prev->point()) File: /usr/include/CGAL/Nef_3/polygon_mesh_to_nef_3.h Line: 256
+//  */
+//);
+
+/* Map of KeyIDs to Comment Name
+easierToReadListOfkeyParameters = //keyParameters[KeyID][ParameterID]
+[
+    //Column 0
+    //Levee: Chicago in choc Dimension
+    0[], //Chicago Steno R2/R4
+    1[], //Chicago Steno R3 flat
+    2[], //Chicago Steno R3 chord
+    //mods 3
+    
+    3[], //Levee Corner R2
+    4[], //Levee Corner R2
+    //1.25 5
+    5[], //Chicago Steno R2/R4 1.25u
+    6[], //Chicago Steno R3 1.25u
+    //1.5 7
+    7[], //Chicago Steno R2/R4 1.5u
+    8[], //Chicago Steno R3 1.5u
+    //1.75 9
+    9[], //Chicago Steno R2/R4 1.75u
+    10[], //Chicago Steno R3 1.75u
+    //2.00 11
+    11[], //Chicago Steno R2/R4 2.0u
+    12[], //Chicago Steno R3 2.0u
+    // Ergo shits
+    13[], //highpro 19.05 R2|4
+    14[], //Chicago Steno R2 ALT
+    15[], //Chicago Steno R1 Steap
+    16[] //Chicago Steno R1 mild with alt R2
+];
+ END Map of KeyIDs to Comment Name */
+ //end
+
 
 //-Parameters
 wallthickness = 1.1; // 1.75 for mx size, 1.1
 topthickness = 2.5; //2 for phat 3 for chicago
 stepsize = 50;  //resolution of Trajectory
 step = 2;       //resolution of ellipes 
-fn = 32;          //resolution of Rounded Rectangles: 60 for output
-layers = 40;    //resolution of vertical Sweep: 50 for output
+fn = 18;          //resolution of Rounded Rectangles: 18 for preview
+fn = 90;          //resolution of Rounded Rectangles: 90 for export
+layers = 50;    //resolution of vertical Sweep: 50 for output
 
 //---Stem param
 slop    = 0.3;
@@ -65,12 +181,12 @@ keyParameters = //keyParameters[KeyID][ParameterID]
     [26.15,  15.60,   5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 1.5
     [26.15,  15.60,   5.6, 	   5,  4.5,    0,   .0,     0,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R3 1.5u
     //1.75 9
-    [30.90,  15.60,   5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 1.5
-    [30.90,  15.60,   5.6, 	   5,  4.5,    0,   .0,     0,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R3 1.5u
+    [30.90,  15.60,   5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 1.75u
+    [30.90,  15.60,   5.6, 	   5,  4.5,    0,   .0,     0,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R3 1.75u
     //2.00 11
-    [35.70,  15.60,   5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 1.5
-    [30.90,  15.60,   5.6, 	   5,  4.5,    0,   .0,     0,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R3 1.5u
-    // Ergo shits
+    [35.70,  15.60,   5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 2.0u
+    [35.70,  15.60,   5.6, 	   5,  4.5,    0,   .0,     0,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R3 2.0u (2022-03-03 NOT TESTED, TODO, only BotWid value 'corrected'{?})
+    // Ergo shits (shifts?)
     [18.75,  18.75,   5.6, 	   5,    8,    0,   .25,     0,    -0,    -0,   2, 2.5,    .10,      3,     .10,      3,     2,       2], //highpro 19.05 R2|4 
     [17.20,  16.00,   5.6, 	   5,  4.7,    0,   .0,      3,    -0,    -0,   2, 2.5,    .10,      2,     .10,      3,     2,       2], //Chicago Steno R2 ALT
     [17.20,  16.00,   5.6, 	   5,  5.5,    0,   .0,      7,    -0,    -0,   2, 2.5,    .10,      2,     .10,      3,     2,       2], //Chicago Steno R1 Steap
@@ -97,7 +213,7 @@ dishParameters = //dishParameter[keyID][ParameterID]
   [ 4.5,    4,    7,  -40,      8,    1.8,   22.5,  27,     2,      4.5,    4,    2,   -35,   22.5,  27,     2], //Chicago Steno R2/R4
   [ 4.5,    4,    5,  -40,      8,    1.8,   22.5,  27,     2,      4.5,    4,    5,   -40,   22.5,  27,     2], //Chicago Steno R3
   //2.00
-  [ 4.5,    4,    7,  -40,      8,    1.8,   22.5,  27,     2,      4.5,    4,    2,   -35,   22.5,  27,     2], //Chicago Steno R2/R4
+  [ 4.5,    4,    7,  -40,      8,    1.8,   22.5,  27,     2,      4.5,    4,    2,   -35,   22.5,  27,     2], //Chicago Steno R2/R4 (TODO FIXME? No change from 22.5 value in 1.75u keycaps...)
   [ 4.5,    4,    5,  -40,      8,    1.8,   22.5,  27,     2,      4.5,    4,    5,   -40,   22.5,  27,     2], //Chicago Steno R3
   
   [   5,    5,    5,  -40,      7,    1.7,   11,    15,     2,        5,    5,    5,   -40,   11,    15,     2], //Chicago Steno R3 flat
@@ -403,4 +519,4 @@ function sign_y(i,n) =
 //          }
 //        } 
 //      }
-//translate([(1-0)*21, (.5-0)*21,0])
+//translate([(1-0)*21, (.5-0)*21,0]);

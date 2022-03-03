@@ -9,10 +9,11 @@ use <skin.scad>
 // Choc Chord version Chicago Stenographer with sculpte Thumb cluter
 // change stemrot 
 
-mirror([1,0,0])keycap(
-  keyID   = 1, //change profile refer to KeyParameters Struct
+mirror([1,0,0]) {
+keycap(
+  keyID   = 4, //change profile refer to KeyParameters Struct
   cutLen  = 0, //Don't change. for chopped caps
-  Stem    = true, //tusn on shell and stems
+  Stem    = true, //turn on shell and stems
   StemRot = 0,//change stem orientation by deg
   Dish    = true, //turn on dish cut
   Stab    = 0, 
@@ -21,14 +22,47 @@ mirror([1,0,0])keycap(
   homeDot = false, //turn on homedots
   Legends = false
 ); 
+}
+
+/* Map of KeyIDs to Comment Name
+
+easierToReadListOfkeyParameters = //keyParameters[KeyID][ParameterID]
+[
+    //Column 0    
+    //Levee: Chicago in choc Dimension for ref 
+    0[], //Levee Steno R2/R4 
+    1[], //Levee Steno R3
+    //Thumb
+    2[], //Thumb 1
+    3[], //Thumb 1.5
+    4[], //Thumb 2.0
+    //1.25 5
+    5[], //Chicago Steno R2/R4 1.25u
+    6[], //Chicago Steno R3 1.25u
+    //1.5 7
+    7[], //Chicago Steno R2/R4 1.5
+    8[], //Chicago Steno R3 1.5u
+    //1.75 9
+    9[], //Chicago Steno R2/R4 1.5
+    10[], //Chicago Steno R3 1.5u
+    // Ergo shits
+    11[], //highpro 19.05 R2|4 
+    12[], //Chicago Steno R2 ALT
+    13[], //Chicago Steno R1 Steap
+    14[], //Chicago Steno R1 mild with alt R2
+
+];
+END Map of KeyIDs to Comment Name */
+//end
 
 //-Parameters
 wallthickness = 1.1; // 1.75 for mx size, 1.1
 topthickness = 2.5; //2 for phat 3 for chicago
 stepsize = 40;  //resolution of Trajectory
 step =2;       //resolution of ellipes 
-fn = 32;          //resolution of Rounded Rectangles: 60 for output
-layers = 40;    //resolution of vertical Sweep: 50 for output
+fn = 18;          //resolution of Rounded Rectangles: 18 for preview
+fn = 90;          //resolution of Rounded Rectangles: 90 for export
+layers = 50;    //resolution of vertical Sweep: 50 for output
 
 //---Stem param
 slop    = 0.3;
