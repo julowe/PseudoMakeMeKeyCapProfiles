@@ -13,6 +13,10 @@
 ## STL Files
 STLs for some keycaps are stored in the `STL` directory. Filenames include some parameter values that are outside of the 'defined' keycap calling function assoicated with the keycap name.
 
+## TODO - Known Errors
+* Chicago Steno R2/R4 1.5u renders with no stems
+* Chicago Steno R3 1.5u renders with no dish on top of keycap
+
 ## Distorted Ellipsoidal Saddle (DES)
 High sculpt smooth transition profile
 ![DES](https://raw.githubusercontent.com/pseudoku/PseudoMakeMeKeyCapProfiles/master/Photo/R1-R5.png)
