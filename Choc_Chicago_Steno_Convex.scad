@@ -9,17 +9,21 @@ use <skin.scad>
 
 //NOTE: with sweep cuts, top surface may not be visible in review, it should be visible once rendered
 
+Legends = false; //not coded as a passed param to funtction, but still used, so just made it a lazy global
 mirror([0,0,0])keycap(
-  keyID  = 1, //change profile refer to KeyParameters Struct
+  keyID  = 0, //change profile refer to KeyParameters Struct
   cutLen = 0, //Don't change. for chopped caps
-  Stem   = true, //tusn on shell and stems
+  Stem   = true, //turn on shell and stems
   StemRot = 0,//change stem orientation by deg
   Dish   = true, //turn on dish cut
   Stab   = 0, 
   visualizeDish = false, // turn on debug visual of Dish 
   crossSection  = false, // center cut to check internal
-  homeDot = false, //turn on homedots
-  Legends = false
+  homeDot = false //turn on homedots
+  /* ERROR FIXME - renders without stems
+  PolySet has nonplanar faces. Attempting alternate construction
+  ERROR: CGAL error in CGALUtils::applyBinaryOperator union: CGAL ERROR: assertion violation! Expr: itl != it->second.end() File: /usr/include/CGAL/Nef_3/SNC_external_structure.h Line: 1144
+  */
 ); 
 
 //Parameters
@@ -27,7 +31,8 @@ wallthickness = 1.2;
 topthickness  = 2;   //
 stepsize      = 50;  //resolution of Trajectory
 step          = 1;   //resolution of ellipes 
-fn            = 32;  //resolution of Rounded Rectangles: 60 for output
+fn            = 18;  //resolution of Rounded Rectangles: 18 for preview
+fn            = 90;  //resolution of Rounded Rectangles: 90 for export
 layers        = 40;  //resolution of vertical Sweep: 50 for output
 dotRadius     = 1.25;   //home dot size
 //---Stem param
@@ -216,7 +221,7 @@ function StemRadius(t, keyID) = pow(t/stemLayers,3)*3 + (1-pow(t/stemLayers, 3))
 
 
 ///----- KEY Builder Module
-module keycap(keyID = 0, cutLen = 0, visualizeDish = false, csrossSection = false, Dish = true, Stem = false,StemRot = 0, homeDot = false, Stab = 0) {
+module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false, Dish = true, Stem = false,StemRot = 0, homeDot = false, Stab = 0) {
   
   //Set Parameters for dish shape
   FrontPath = quantize_trajectories(FrontTrajectory(keyID), steps = stepsize, loop=false, start_position= $t*4);
