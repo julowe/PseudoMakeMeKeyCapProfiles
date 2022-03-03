@@ -10,7 +10,9 @@
 * press F6 to render
 * press F7 to export as STL
 
-#Some notes on
+## STL Files
+STLs for some keycaps are stored in the `STL` directory. Filenames include some parameter values that are outside of the 'defined' keycap calling function assoicated with the keycap name.
+
 ## Distorted Ellipsoidal Saddle (DES)
 High sculpt smooth transition profile
 ![DES](https://raw.githubusercontent.com/pseudoku/PseudoMakeMeKeyCapProfiles/master/Photo/R1-R5.png)
