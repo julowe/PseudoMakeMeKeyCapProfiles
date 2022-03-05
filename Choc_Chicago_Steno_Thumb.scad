@@ -61,7 +61,7 @@ topthickness = 2.5; //2 for phat 3 for chicago
 stepsize = 40;  //resolution of Trajectory
 step =2;       //resolution of ellipes 
 fn = 18;          //resolution of Rounded Rectangles: 18 for preview
-fn = 90;          //resolution of Rounded Rectangles: 90 for export
+//fn = 90;          //resolution of Rounded Rectangles: 90 for export
 layers = 50;    //resolution of vertical Sweep: 50 for output
 
 //---Stem param
@@ -401,7 +401,7 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false
             translate([Stab/2,0,0])rotate([0,0,StemRot])cherry_stem(KeyHeight(keyID), slop);
             translate([-Stab/2,0,0])rotate([0,0,StemRot])cherry_stem(KeyHeight(keyID), slop);
           }
-          translate([0,0,-.001])rotate([0,0,StemRot])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=1 /*StemRadius(i, keyID) */ ))]); //outer shell
+          //translate([0,0,-.001])rotate([0,0,StemRot])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=1 /*StemRadius(i, keyID) */ ))]); //outer shell
        }
         
      }
