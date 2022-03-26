@@ -344,7 +344,6 @@ function StemTransform(t, keyID) =
     pow(t/stemLayers, StemExponent(keyID))*(BottomWidth(keyID) -TopLenDiff(keyID)-wallthickness*2) + (1-pow(t/stemLayers, StemExponent(keyID)))*(stemWid - 2*slop),
     pow(t/stemLayers, StemExponent(keyID))*(BottomLength(keyID)-TopLenDiff(keyID)-wallthickness*2) + (1-pow(t/stemLayers, StemExponent(keyID)))*(stemLen - 2*slop)
   ];
-
   
 function StemRadius(t, keyID) = pow(t/stemLayers,3)*3 + (1-pow(t/stemLayers, 3))*1;
   //Stem Exponent 
@@ -403,14 +402,7 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false
             translate([Stab/2,0,0])rotate([0,0,StemRot])cherry_stem(KeyHeight(keyID), slop);
             translate([-Stab/2,0,0])rotate([0,0,StemRot])cherry_stem(KeyHeight(keyID), slop);
           }
-//          translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=1 /*StemRadius(i, keyID) */ ))]); //outer shell
-              
-          translate([-12/2,-8/2,stemCrossHeight+.1 + (0/stemLayers*(KeyHeight(keyID)- topthickness - stemCrossHeight-.1))]){
-          cube([12,8,3]);    
-          } //ugh maybe the worst hack of this iteration.. cube replaces plane that was commented out above, so keycap has even surface to press agianst top of keyswitch when depressed
-          
-          
-          
+          translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=1 /*StemRadius(i, keyID) */ ))]); //outer shell
        }
         
      }
@@ -503,8 +495,7 @@ module cherry_stem(depth, slop) {
 
 
 module choc_stem(draftAng = 5) {
-    stemAdjustment = 2; //FIXME this is a hack to get stems to connect to underside, because I haven't spent the time to understand/fix the nice curved object/skin() that connects stems to underside, but is rotated weird with stemrot on thumb 2u. I think this will be fine to use for all keycaps - these stems will just protrude further into the underdish but not actually be visible
-  stemHeight = 3.1+stemAdjustment;
+  stemHeight = 3.1;
   dia = .15;
   wids = 1.2/2;
   lens = 2.9/2; 
@@ -523,8 +514,8 @@ module choc_stem(draftAng = 5) {
     }
   }
 
-  translate([5.7/2,0,-stemHeight/2+2+stemAdjustment])Stem();
-  translate([-5.7/2,0,-stemHeight/2+2+stemAdjustment])Stem();
+  translate([5.7/2,0,-stemHeight/2+2])Stem();
+  translate([-5.7/2,0,-stemHeight/2+2])Stem();
 }
 
 /// ----- helper functions 
