@@ -9,7 +9,8 @@ use <skin.scad>
 // Choc Chord version Chicago Stenographer with sculpte Thumb cluter
 // change stemrot 
 
-mirror([0,0,0]) {
+
+mirror([1,0,0]) {
 keycap(
   keyID   = 4, //change profile refer to KeyParameters Struct
   cutLen  = 0, //Don't change. for chopped caps
@@ -60,8 +61,8 @@ wallthickness = 1.1; // 1.75 for mx size, 1.1
 topthickness = 2.5; //2 for phat 3 for chicago
 stepsize = 40;  //resolution of Trajectory
 step =2;       //resolution of ellipes 
-fn = 18;          //resolution of Rounded Rectangles: 18 for preview
-//fn = 90;          //resolution of Rounded Rectangles: 90 for export
+//fn = 18;          //resolution of Rounded Rectangles: 18 for preview
+fn = 90;          //resolution of Rounded Rectangles: 90 for export
 layers = 50;    //resolution of vertical Sweep: 50 for output
 
 //---Stem param
@@ -343,6 +344,7 @@ function StemTransform(t, keyID) =
     pow(t/stemLayers, StemExponent(keyID))*(BottomWidth(keyID) -TopLenDiff(keyID)-wallthickness*2) + (1-pow(t/stemLayers, StemExponent(keyID)))*(stemWid - 2*slop),
     pow(t/stemLayers, StemExponent(keyID))*(BottomLength(keyID)-TopLenDiff(keyID)-wallthickness*2) + (1-pow(t/stemLayers, StemExponent(keyID)))*(stemLen - 2*slop)
   ];
+
   
 function StemRadius(t, keyID) = pow(t/stemLayers,3)*3 + (1-pow(t/stemLayers, 3))*1;
   //Stem Exponent 
@@ -401,7 +403,14 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false
             translate([Stab/2,0,0])rotate([0,0,StemRot])cherry_stem(KeyHeight(keyID), slop);
             translate([-Stab/2,0,0])rotate([0,0,StemRot])cherry_stem(KeyHeight(keyID), slop);
           }
-          //translate([0,0,-.001])rotate([0,0,StemRot])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=1 /*StemRadius(i, keyID) */ ))]); //outer shell
+//          translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=1 /*StemRadius(i, keyID) */ ))]); //outer shell
+              
+          translate([-12/2,-8/2,stemCrossHeight+.1 + (0/stemLayers*(KeyHeight(keyID)- topthickness - stemCrossHeight-.1))]){
+          cube([12,8,3]);    
+          } //ugh maybe the worst hack of this iteration.. cube replaces plane that was commented out above, so keycap has even surface to press agianst top of keyswitch when depressed
+          
+          
+          
        }
         
      }
@@ -494,7 +503,8 @@ module cherry_stem(depth, slop) {
 
 
 module choc_stem(draftAng = 5) {
-  stemHeight = 3.1;
+    stemAdjustment = 2; //FIXME this is a hack to get stems to connect to underside, because I haven't spent the time to understand/fix the nice curved object/skin() that connects stems to underside, but is rotated weird with stemrot on thumb 2u. I think this will be fine to use for all keycaps - these stems will just protrude further into the underdish but not actually be visible
+  stemHeight = 3.1+stemAdjustment;
   dia = .15;
   wids = 1.2/2;
   lens = 2.9/2; 
@@ -508,13 +518,13 @@ module choc_stem(draftAng = 5) {
       }
 
     //cuts
-      translate([3.9,0])cylinder(d1=7+sin(draftAng)*stemHeight, d2=7,3.5, center = true, $fn = 64);
-      translate([-3.9,0])cylinder(d1=7+sin(draftAng)*stemHeight,d2=7,3.5, center = true, $fn = 64);
+      translate([3.9,0])cylinder(d1=7+sin(draftAng)*stemHeight, d2=7,stemHeight+0.5, center = true, $fn = 64);
+      translate([-3.9,0])cylinder(d1=7+sin(draftAng)*stemHeight,d2=7,stemHeight+0.5, center = true, $fn = 64);
     }
   }
 
-  translate([5.7/2,0,-stemHeight/2+2])Stem();
-  translate([-5.7/2,0,-stemHeight/2+2])Stem();
+  translate([5.7/2,0,-stemHeight/2+2+stemAdjustment])Stem();
+  translate([-5.7/2,0,-stemHeight/2+2+stemAdjustment])Stem();
 }
 
 /// ----- helper functions 
