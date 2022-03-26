@@ -69,26 +69,9 @@ use <skin.scad>
 //  Legends = false
 //);
   
-//Chicago Steno R2/R4 1.5
-keycap(
-  keyID  = 7, //change profile refer to KeyParameters Struct
-  cutLen = 0, //Don't change. for chopped caps
-  Stem   = true, //turn on shell and stems
-  StemRot = 0, //change stem orientation by deg
-  Dish   = true, //turn on dish cut
-  Stab   = 0,
-  visualizeDish = false, // turn on debug visual of Dish
-  crossSection  = false, // center cut to check internal
-  homeDot = true, //turn on homedots
-  Legends = false
-  /* ERROR FIXME - no stems, but has dish
-  ERROR: CGAL error in CGALUtils::applyBinaryOperator union: CGAL ERROR: assertion violation! Expr: itl != it->second.end() File: /usr/include/CGAL/Nef_3/SNC_external_structure.h Line: 1144
-  */
-);
-  
-////Chicago Steno R3 1.5u
+////Chicago Steno R2/R4 1.5
 //keycap(
-//  keyID  = 8, //change profile refer to KeyParameters Struct
+//  keyID  = 7, //change profile refer to KeyParameters Struct
 //  cutLen = 0, //Don't change. for chopped caps
 //  Stem   = true, //turn on shell and stems
 //  StemRot = 0, //change stem orientation by deg
@@ -96,13 +79,32 @@ keycap(
 //  Stab   = 0,
 //  visualizeDish = false, // turn on debug visual of Dish
 //  crossSection  = false, // center cut to check internal
-//  homeDot = true, //turn on homedots
+//  homeDot = false, //turn on homedots
 //  Legends = false
-//  /* ERROR FIXME - has stems but no dish
-//  ERROR: CGAL error in CGAL_Nef_polyhedron3(): CGAL ERROR: assertion violation! Expr: ss_circle.has_on(sv_prev->point()) File: /usr/include/CGAL/Nef_3/polygon_mesh_to_nef_3.h Line: 256
-//  ERROR: CGAL error in CGAL_Nef_polyhedron3(): CGAL ERROR: assertion violation! Expr: ss_circle.has_on(sv_prev->point()) File: /usr/include/CGAL/Nef_3/polygon_mesh_to_nef_3.h Line: 256
+//  /* ERROR FIXME - no stems, but has dish
+//  ERROR: CGAL error in CGALUtils::applyBinaryOperator union: CGAL ERROR: assertion violation! Expr: itl != it->second.end() File: /usr/include/CGAL/Nef_3/SNC_external_structure.h Line: 1144
 //  */
 //);
+  
+//Chicago Steno R3 1.5u
+keycap(
+  keyID  = 8, //change profile refer to KeyParameters Struct
+  cutLen = 0, //Don't change. for chopped caps
+  Stem   = true, //turn on shell and stems
+  StemRot = 0, //change stem orientation by deg
+  Dish   = true, //turn on dish cut
+  Stab   = 0,
+  visualizeDish = false, // turn on debug visual of Dish
+  crossSection  = false, // center cut to check internal
+  homeDot = false, //turn on homedots
+  Legends = false
+  /* ERROR FIXME - has stems but no dish
+  ERROR: CGAL error in CGAL_Nef_polyhedron3(): CGAL ERROR: assertion violation! Expr: ss_circle.has_on(sv_prev->point()) File: /usr/include/CGAL/Nef_3/polygon_mesh_to_nef_3.h Line: 256
+  ERROR: CGAL error in CGAL_Nef_polyhedron3(): CGAL ERROR: assertion violation! Expr: ss_circle.has_on(sv_prev->point()) File: /usr/include/CGAL/Nef_3/polygon_mesh_to_nef_3.h Line: 256
+
+TODO try iterating through parameters from 1u, start with height?
+  */
+);
 
 /* Map of KeyIDs to Comment Name
 easierToReadListOfkeyParameters = //keyParameters[KeyID][ParameterID]
@@ -143,10 +145,12 @@ wallthickness = 1.1; // 1.75 for mx size, 1.1
 topthickness = 2.5; //2 for phat 3 for chicago
 stepsize = 50;  //resolution of Trajectory
 step = 2;       //resolution of ellipes 
-fn = 18;          //resolution of Rounded Rectangles: 18 for preview
+//fn = 18;          //resolution of Rounded Rectangles: 18 for preview
 fn = 90;          //resolution of Rounded Rectangles: 90 for export
 layers = 50;    //resolution of vertical Sweep: 50 for output
 
+
+//this means the slope form keycap underside to what goes into key switches...
 //---Stem param
 slop    = 0.3;
 stemRot = 0;
@@ -178,7 +182,10 @@ keyParameters = //keyParameters[KeyID][ParameterID]
     [21.3,   15.60,  5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 1.25u
     [21.4,   15.60,  5.6, 	   5,  4.5,    0,   .0,     0,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R3 1.25u
     //1.5 7
-    [26.15,  15.60,   5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 1.5
+    //[26.15,  16.0,   5.6, 	   5,  4.9,    0,   .0,     5,    -0,    -0,   2,   2.5,     .1,      2,      .1,      3,     2,       2], //Chicago Steno R2/R4 1.5 - copied from r2r4 1u
+    //[26.15,  16.0,   5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2.5,     .1,      2,      .1,      3,     2,       2], //Chicago Steno R2/R4 1.5 - MASHUP. start from 1u, height from 1.5u FAILS
+    [26.15,  15.60,   5.6, 	   5,  4.9,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 1.5 - orig, height from 1u
+    //[26.15,  15.60,   5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 1.5 - orig - FAILS
     [26.15,  15.60,   5.6, 	   5,  4.5,    0,   .0,     0,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R3 1.5u
     //1.75 9
     [30.90,  15.60,   5.6, 	   5,  4.5,    0,   .0,     5,    -0,    -0,   2,   2,     .5,      3,      .5,      3,     2,       2], //Chicago Steno R2/R4 1.75u
@@ -241,6 +248,12 @@ function CapRound1i(keyID)   = keyParameters[keyID][14];
 function CapRound1f(keyID)   = keyParameters[keyID][15];
 function ChamExponent(keyID) = keyParameters[keyID][16];
 function StemExponent(keyID) = keyParameters[keyID][17];
+
+/*
+1u   [26.15,  16.0,   5.6, 	   5,  4.9(keyHeight),    0,   .0,     5,    -0,    -0,   2,   2.5LenExponent,     .1CapRound0i,      2CapRound0f,      .1CapRound1i,      3,     2,       2], //Chicago Steno R2/R4 1.5 - copied from r2r4 1u
+1.5u [26.15,  15.60,   5.6,    5,  4.5(keyHeight),    0,   .0,     5,    -0,    -0,   2,   2LenExponent,       .5CapRound0i,      3CapRound0f,      .5CapRound1i,      3,     2,       2], //Chicago Steno R2/R4 1.5 - orig
+
+*/
 
 function FrontForward1(keyID) = dishParameters[keyID][0];  //
 function FrontForward2(keyID) = dishParameters[keyID][1];  // 
@@ -427,8 +440,9 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false
   }
   //Homing dot
   if(homeDot == true){
-    translate([2,-4.5,KeyHeight(keyID)-DishHeightDif(keyID)+.15])sphere(d = 1);
-    translate([-2,-4.5,KeyHeight(keyID)-DishHeightDif(keyID)+.15])sphere(d = 1);
+      homeDotBumpUp = 0.15; //0.15 was default, 0.30 is agressive
+    translate([2,-4.5,KeyHeight(keyID)-DishHeightDif(keyID)+homeDotBumpUp])sphere(d = 1);
+    translate([-2,-4.5,KeyHeight(keyID)-DishHeightDif(keyID)+homeDotBumpUp])sphere(d = 1);
   }
 }
 
@@ -437,21 +451,26 @@ $fn = fn;
 
 module choc_stem(draftAng = 5) {
   stemHeight = 3.1;
-  dia = .15;
-  wids = 1.2/2;
-  lens = 2.9/2; 
+  dia = .15; //default .15
+    //TODO change to stemWidth, stemLength, stemCornerDiam
+  wids = 1.3/2;  //default 1.2
+  //lens = 3/2; //apparently not used, now used, was 2.9/2
+  lens = 2.8/2; //apparently not used, now used
   module Stem() {
     difference(){
       translate([0,0,-stemHeight/2])linear_extrude(height = stemHeight)hull(){
-        translate([wids-dia,-3/2])circle(d=dia);
-        translate([-wids+dia,-3/2])circle(d=dia);
-        translate([wids-dia, 3/2])circle(d=dia);
-        translate([-wids+dia, 3/2])circle(d=dia);
+        translate([wids-dia,-lens])circle(d=dia);
+        translate([-wids+dia,-lens])circle(d=dia);
+        translate([wids-dia, lens])circle(d=dia);
+        translate([-wids+dia, lens])circle(d=dia);
       }
 
     //cuts
-      translate([3.9,0])cylinder(d1=7+sin(draftAng)*stemHeight, d2=7,3.5, center = true, $fn = 64);
-      translate([-3.9,0])cylinder(d1=7+sin(draftAng)*stemHeight,d2=7,3.5, center = true, $fn = 64);
+      //TODO change to stemCutDiam, stemCutHeight, stemCutTranslationX
+      cutDiam = 6.95; //default 7
+      cutXtranslation = 3.9; //default 3.9
+      translate([cutXtranslation,0])cylinder(d1=cutDiam+sin(draftAng)*stemHeight, d2=cutDiam,3.5, center = true, $fn = 64);
+      translate([-cutXtranslation,0])cylinder(d1=cutDiam+sin(draftAng)*stemHeight,d2=cutDiam,3.5, center = true, $fn = 64);
     }
   }
 
