@@ -495,22 +495,24 @@ module cherry_stem(depth, slop) {
 
 
 module choc_stem(draftAng = 5) {
-  stemHeight = 3.1;
-  dia = .15;
-  wids = 1.2/2;
-  lens = 2.9/2; 
+  stemHeight = 3.1; //default 3.1
+  stemCornerDiam = .15; //default .15
+  stemWidth = 1.3/2; //default 1.2
+  stemLength = 2.8/2; //default 2.9
   module Stem() {
     difference(){
       translate([0,0,-stemHeight/2])linear_extrude(height = stemHeight)hull(){
-        translate([wids-dia,-3/2])circle(d=dia);
-        translate([-wids+dia,-3/2])circle(d=dia);
-        translate([wids-dia, 3/2])circle(d=dia);
-        translate([-wids+dia, 3/2])circle(d=dia);
+        translate([stemWidth-stemCornerDiam,-stemLength])circle(d=stemCornerDiam);
+        translate([-stemWidth+stemCornerDiam,-stemLength])circle(d=stemCornerDiam);
+        translate([stemWidth-stemCornerDiam, stemLength])circle(d=stemCornerDiam);
+        translate([-stemWidth+stemCornerDiam, stemLength])circle(d=stemCornerDiam);
       }
 
     //cuts
-      translate([3.9,0])cylinder(d1=7+sin(draftAng)*stemHeight, d2=7,stemHeight+0.5, center = true, $fn = 64);
-      translate([-3.9,0])cylinder(d1=7+sin(draftAng)*stemHeight,d2=7,stemHeight+0.5, center = true, $fn = 64);
+      cutDiam = 6.95; //default 7
+      cutXtranslation = 3.9; //default 3.9
+      translate([cutXtranslation,0])cylinder(d1=cutDiam+sin(draftAng)*stemHeight, d2=cutDiam,stemHeight+0.5, center = true, $fn = 64);
+      translate([-cutXtranslation,0])cylinder(d1=cutDiam+sin(draftAng)*stemHeight,d2=cutDiam,stemHeight+0.5, center = true, $fn = 64);
     }
   }
 
