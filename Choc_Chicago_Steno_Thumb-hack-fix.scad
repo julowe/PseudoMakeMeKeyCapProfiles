@@ -404,13 +404,18 @@ module keycap(keyID = 0, cutLen = 0, visualizeDish = false, crossSection = false
           translate([0,0,-.001])skin([for (i=[0:layers-1]) transform(translation(InnerTranslation(i, keyID)) * rotation(CapRotation(i, keyID)), elliptical_rectangle(InnerTransform(i, keyID), b = CapRoundness(i,keyID),fn=fn))]);
         }
       }
-      if(Stem == true){
+      if(Stem == true){ 
+        if (Stab != 0){
+          translate([Stab/2,0,0])cherry_stem(KeyHeight(keyID), slop);
+          translate([-Stab/2,0,0])cherry_stem(KeyHeight(keyID), slop);
+        }
         rotate([0,0,StemRot]){
           choc_stem(draftAng = draftAngle); 
-          if (Stab != 0){
-            translate([Stab/2,0,0])rotate([0,0,StemRot])cherry_stem(KeyHeight(keyID), slop);
-            translate([-Stab/2,0,0])rotate([0,0,StemRot])cherry_stem(KeyHeight(keyID), slop);
-          }
+//          if (Stab != 0){ //don't rotate stabilizer points
+//            translate([Stab/2,0,0])rotate([0,0,-StemRot])cherry_stem(KeyHeight(keyID), slop);
+//            translate([-Stab/2,0,0])rotate([0,0,-StemRot])cherry_stem(KeyHeight(keyID), slop);
+//          }
+//          translate([0,0,-.001])rotate([0,0,StemRot])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=1 /*StemRadius(i, keyID) */ ))]); //outer shell
           translate([0,0,-.001])skin([for (i=[0:stemLayers-1]) transform(translation(StemTranslation(i,keyID)), rounded_rectangle_profile(StemTransform(i, keyID),fn=fn,r=1 /*StemRadius(i, keyID) */ ))]); //outer shell
               
 //          translate([-12/2,-8/2,stemCrossHeight+.1 + (0/stemLayers*(KeyHeight(keyID)- topthickness - stemCrossHeight-.1))]){
